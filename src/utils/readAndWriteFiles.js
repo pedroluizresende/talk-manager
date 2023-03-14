@@ -23,8 +23,8 @@ const updatedTalker = async (id, talker) => {
   const talkers = await readAll();
   if (!talkers.some((t) => t.id === numberId)) return null;
   const newTalkers = talkers.reduce((arr, t) => {
-    if (t.id === numberId) return [...arr, talker];
-    return [...arr, talker];
+    if (t.id === numberId) return [...arr, { id: numberId, ...talker }];
+    return [...arr, t];
   }, []);
   fs.writeFile('src/talker.json', JSON.stringify(newTalkers, null, 2));
 };
