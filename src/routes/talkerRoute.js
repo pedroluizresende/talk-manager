@@ -12,8 +12,6 @@ router.get('/', async (_req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   const talker = await readById(id);
- 
-console.log(talker);
   if (talker.length === 0) {
     return res.status(404)
     .json({ message: 'Pessoa palestrante não encontrada' }); 
