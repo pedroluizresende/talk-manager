@@ -43,7 +43,7 @@ validateName, validateAge,
   if (response === null) {
     return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
   }
-    return res.status(200).json({ id, ...talker }); 
+    return res.status(200).json({ id: (+id), ...talker }); 
   });
 
 router.delete('/:id', validateToken, async (req, res) => {
