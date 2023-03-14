@@ -29,6 +29,13 @@ const updatedTalker = async (id, talker) => {
   fs.writeFile('src/talker.json', JSON.stringify(newTalkers, null, 2));
 };
 
+const removeTalker = async (id) => {
+  const numberId = Number(id);
+  const talkers = await readAll();
+  const newTalkers = talkers.filter((t) => t.id !== numberId);
+  fs.writeFile('src/talker.json', JSON.stringify(newTalkers, null, 2));
+};
+
 readById();
 readAll();
 module.exports = {
@@ -36,4 +43,5 @@ module.exports = {
   readById,
   writingTalker,
   updatedTalker,
+  removeTalker,
 };

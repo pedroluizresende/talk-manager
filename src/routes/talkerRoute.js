@@ -1,6 +1,6 @@
 const express = require('express');
 const { readAll, readById, writingTalker,
-updatedTalker } = require('../utils/readAndWriteFiles');
+updatedTalker, removeTalker } = require('../utils/readAndWriteFiles');
 const validateToken = require('../middlewares/validateToken');
 const validateName = require('../middlewares/validateName');
 const validateAge = require('../middlewares/validateAge');
@@ -45,5 +45,11 @@ validateName, validateAge,
   }
     return res.status(200).json({ id, ...talker }); 
   });
+
+router.delete('/:id', validateToken, async (req, res) => {
+  const { id } = req.params;
+  removeTalker(id);
+  return res.status(204).json({ id }); 
+});
 
 module.exports = router;
