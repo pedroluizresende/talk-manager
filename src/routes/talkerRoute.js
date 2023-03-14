@@ -1,5 +1,9 @@
 const express = require('express');
-const { readAll, readById } = require('../utils/readAndWriteFiles');
+const { readAll, readById, writingTalker } = require('../utils/readAndWriteFiles');
+const validateToken = require('../middlewares/validateToken');
+const validateName = require('../middlewares/validateName');
+const validateAge = require('../middlewares/validateAge');
+const { validateTalk, validateWatchedAt, validateRate } = require('../middlewares/validateTalk');
 
 const router = express.Router();
 
@@ -17,6 +21,15 @@ router.get('/:id', async (req, res) => {
     .json({ message: 'Pessoa palestrante não encontrada' }); 
 }
   return res.status(200).json(talker[0]); 
+});
+
+router.post('/', validateToken, 
+validateName, validateAge,
+ validateTalk, validateWatchedAt,
+  validateRate, async (req, res) => {
+    const talker = req.body;
+    const id = await writingTalker(talker);
+    return res.status(201).json({ id, ...talker }); 
 });
 
 module.exports = router;
