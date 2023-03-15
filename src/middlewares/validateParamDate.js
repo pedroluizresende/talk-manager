@@ -1,5 +1,5 @@
 const { readAll } = require('../utils/readAndWriteFiles');
-
+// 
 const onlyDate = (terms) => {
   if (terms.length === 1 && terms[0] === 'date') {
     return true;
