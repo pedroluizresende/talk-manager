@@ -9,6 +9,7 @@ const validateTerms = require('../middlewares/validateTerms');
 const validateParamRate = require('../middlewares/validateParamRate');
 const validateParamDate = require('../middlewares/validateParamDate');
 const { validateOnlyRate, validateIfIsZero } = require('../middlewares/validateRate');
+const connection = require('../db/connection');
 
 const router = express.Router();
 
@@ -16,6 +17,22 @@ router.get('/', async (_req, res) => {
   const talker = await readAll();
   if (!talker) return res.status(200).json([]);
   return res.status(200).json(talker);
+});
+
+router.get('/db', async (req, res) => {
+  const [response] = await connection.execute('SELECT * FROM talkers');
+
+  const talkers = response.map((t) => ({
+    id: t.id,
+    name: t.name,
+    age: t.age,
+    talk: {
+      watchedAt: t.talk_watched_at,
+      rate: t.talk_rate,
+    },
+  }));
+
+  res.status(200).json(talkers);
 });
 
 router.get('/search', validateToken,
