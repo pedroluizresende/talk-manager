@@ -36,17 +36,29 @@ const removeTalker = async (id) => {
   fs.writeFile('src/talker.json', JSON.stringify(newTalkers, null, 2));
 };
 
-const filterByTerm = async (term) => {
-  const talkers = await readAll();
-  return talkers.filter((t) => t.name.toLowerCase().includes(term.toLowerCase()));
+const filterTalker = async (terms) => {
+  let talkers = [...await readAll()];
+  const filters = Object.keys(terms);
+  filters.forEach((filter) => {
+    if (filter === 'q') {
+      talkers = talkers.filter((t) => t.name.toLowerCase().includes(terms.q.toLowerCase()));
+    }
+    if (filter === 'date') {
+    talkers = talkers.filter((t) => t.talk.watchedAt.toLowerCase()
+    .includes(terms.date.toLowerCase())); 
+    }
+    if (filter === 'rate') {
+      talkers = talkers.filter((t) => t.talk.rate === Number(terms.rate)); 
+    }
+  });
+  return talkers;
 };
 
-console.log(filterByTerm('rica'));
 module.exports = {
   readAll,
   readById,
   writingTalker,
   updatedTalker,
   removeTalker,
-  filterByTerm,
+  filterTalker,
 };

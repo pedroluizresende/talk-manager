@@ -1,11 +1,12 @@
 const express = require('express');
 const { readAll, readById, writingTalker,
-updatedTalker, removeTalker, filterByTerm } = require('../utils/readAndWriteFiles');
+updatedTalker, removeTalker, filterTalker } = require('../utils/readAndWriteFiles');
 const validateToken = require('../middlewares/validateToken');
 const validateName = require('../middlewares/validateName');
 const validateAge = require('../middlewares/validateAge');
 const { validateTalk, validateWatchedAt, validateRate } = require('../middlewares/validateTalk');
-const validateTerm = require('../middlewares/validateTerm');
+const validateTerms = require('../middlewares/validateTerms');
+const validateParamRate = require('../middlewares/validateParamRate');
 
 const router = express.Router();
 
@@ -15,11 +16,10 @@ router.get('/', async (_req, res) => {
   return res.status(200).json(talker);
 });
 
-router.get('/search', validateToken, validateTerm, async (req, res) => {
-  const term = req.query.q;
-  console.log(term);
-  const response = await filterByTerm(term);
-  console.log(response);
+router.get('/search', validateToken,
+validateTerms, validateParamRate, async (req, res) => {
+  const term = req.query;
+  const response = await filterTalker(term);
   return res.status(200).json(response);
 });
 
