@@ -1,7 +1,9 @@
 const fs = require('fs').promises;
 
+const path = 'src/talker.json';
+
 const readAll = async () => {
-  const talkers = await fs.readFile('src/talker.json', 'utf-8');
+  const talkers = await fs.readFile(path, 'utf-8');
  return JSON.parse(talkers);
 };
 
@@ -14,7 +16,7 @@ const writingTalker = async (talker) => {
   const talkers = await readAll();
   const id = talkers.length + 1;
   talkers.push({ id, ...talker });
-  fs.writeFile('src/talker.json', JSON.stringify(talkers, null, 2));
+  fs.writeFile(path, JSON.stringify(talkers, null, 2));
   return id;
 };
 
@@ -26,14 +28,14 @@ const updatedTalker = async (id, talker) => {
     if (t.id === numberId) return [...arr, { id: numberId, ...talker }];
     return [...arr, t];
   }, []);
-  fs.writeFile('src/talker.json', JSON.stringify(newTalkers, null, 2));
+  fs.writeFile(path, JSON.stringify(newTalkers, null, 2));
 };
 
 const removeTalker = async (id) => {
   const numberId = Number(id);
   const talkers = await readAll();
   const newTalkers = talkers.filter((t) => t.id !== numberId);
-  fs.writeFile('src/talker.json', JSON.stringify(newTalkers, null, 2));
+  fs.writeFile(path, JSON.stringify(newTalkers, null, 2));
 };
 
 const filterTalker = async (terms) => {
@@ -54,6 +56,24 @@ const filterTalker = async (terms) => {
   return talkers;
 };
 
+const updateRate = async (id, reqRate) => {
+  const { rate } = reqRate;
+  const talkers = await readAll();
+  const newTalkers = talkers.reduce((arr, talker) => {
+    if (talker.id === Number(id)) {
+      return [...arr, {
+        ...talker,
+          talk: {
+            ...talker.talk,
+            rate,
+          },
+      }];
+    }
+    return [...arr, talker];
+  }, []);
+  fs.writeFile(path, JSON.stringify(newTalkers, null, 2));
+};
+
 module.exports = {
   readAll,
   readById,
@@ -61,4 +81,5 @@ module.exports = {
   updatedTalker,
   removeTalker,
   filterTalker,
+  updateRate,
 };
