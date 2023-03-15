@@ -7,6 +7,7 @@ const validateAge = require('../middlewares/validateAge');
 const { validateTalk, validateWatchedAt, validateRate } = require('../middlewares/validateTalk');
 const validateTerms = require('../middlewares/validateTerms');
 const validateParamRate = require('../middlewares/validateParamRate');
+const validateParamDate = require('../middlewares/validateParamDate');
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.get('/', async (_req, res) => {
 });
 
 router.get('/search', validateToken,
-validateTerms, validateParamRate, async (req, res) => {
+validateTerms, validateParamRate, validateParamDate, async (req, res) => {
   const term = req.query;
   const response = await filterTalker(term);
   return res.status(200).json(response);
