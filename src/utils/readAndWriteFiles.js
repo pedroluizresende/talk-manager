@@ -36,12 +36,17 @@ const removeTalker = async (id) => {
   fs.writeFile('src/talker.json', JSON.stringify(newTalkers, null, 2));
 };
 
-readById();
-readAll();
+const filterByTerm = async (term) => {
+  const talkers = await readAll();
+  return talkers.filter((t) => t.name.toLowerCase().includes(term.toLowerCase()));
+};
+
+console.log(filterByTerm('rica'));
 module.exports = {
   readAll,
   readById,
   writingTalker,
   updatedTalker,
   removeTalker,
+  filterByTerm,
 };
