@@ -1,13 +1,28 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# talker-manager api
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+This project is an object of study in <a href="https://www.betrybe.com/" target="_blank" rel="noopener noreferrer">Trybe</a> web development course, specifically the back-end module
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+## Objetivo
+
+Build an application for registering talkers (speakers) in which it will be possible to register, view, search, edit and delete information.
+
+What was developed?
+
+1. Develop an API for a CRUD (Create, Read, Update and Delete) of speakers (talkers) and;
+2. Develop some endpoints that will read and write to a file using the fs module.
+
+## How to run the application
+
+1. Clone the repository with git clone:
+
+`git clone git@github.com:tryber/sd-0x-project-x.git`
+
+2. Bring up docker containers with `docker-compose up -d
+
+3. Acess the container terminal with `docker exec -it talker_manager bash`
+4. Install the dependencies with: `npm install`
+5. Start the server with `npm start`
+
+### Ready! Now you can test the application endpoints
+
+    
