@@ -11,6 +11,16 @@ What was developed?
 1. Develop an API for a CRUD (Create, Read, Update and Delete) of speakers (talkers) and;
 2. Develop some endpoints that will read and write to a file using the fs module.
 
+## Technologies used
+
+- node.js
+- Express
+- mocha
+- chai
+- chai-http
+- sinon
+- JavaScript
+
 ## How to run the application
 
 1. Clone the repository with git clone:
